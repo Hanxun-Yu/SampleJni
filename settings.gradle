@@ -1,0 +1,5 @@
+include ':AppSoCreator', ':App', ':LibAndroidDependJni', ':LibJniAndroidDependExtSo'
+//App: app
+//AppSoCreator: 生成so的app
+//LibAndroidDependJni: 普通安卓lib，依赖jni安卓lib
+//LibJniAndroidDependExtSo:jni安卓lib依赖外部so
