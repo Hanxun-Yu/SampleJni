@@ -1,21 +1,20 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        flavorDimensions rootProject.ext.flavorDimensions
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
                 cppFlags "--std=c++11"
-                abiFilters 'armeabi','armeabi-v7a','x86'
+                abiFilters 'armeabi', 'armeabi-v7a', 'x86'
             }
         }
     }
@@ -30,6 +29,25 @@ android {
         cmake {
             path "./src/main/cpp/CMakeLists.txt"
         }
+    }
+
+    productFlavors {
+        jnicom {
+            dimension rootProject.ext.flavorDimensions
+            externalNativeBuild {
+                cmake {
+                    targets "jnicom","jnicomTest"
+                }
+            }
+        }
+//        jnicom2 {
+//            externalNativeBuild {
+//                cmake {
+//                    targets "jnicom"
+//
+//                }
+//            }
+//        }
     }
 }
 

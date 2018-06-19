@@ -1,7 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+    ext {
+        minSdkVersion = 19
+        compileSdkVersion = 26
+        buildToolsVersion = "27.0.3"
+        targetSdkVersion = 23
+        versionCode = 2
+        versionName = "0.9.6"
+        flavorDimensions = "versionCode"
+    }
+
     repositories {
         jcenter()
         maven {
@@ -12,7 +21,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-alpha17'
-        
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
