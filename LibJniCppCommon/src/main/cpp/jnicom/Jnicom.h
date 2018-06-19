@@ -14,7 +14,9 @@
 
 class Jnicom {
 public:
+    Jnicom();
     Jnicom(JNIEnv *env);
+    int handleJNILoad(JavaVM *vm, void *reserved,std::string myClassName,const JNINativeMethod* methods,int methodSize);
     const char* strValOf(std::string str);
     const char* strValOf(std::string str,bool isCopy);
 
@@ -23,8 +25,7 @@ public:
     jstring jstrValOf(std::string str);
 
     int* jintValOf(jintArray intArr);
-    jcharArray jcharValOf(const char* charArr);
-
+    jcharArray jcharValOf(const char *charArr, int length);
     jbyteArray jbyteValOf(std::string str);
     jbyteArray jbyteValOf(const char* charArr,int length);
 private:
