@@ -5,6 +5,7 @@
 #ifndef SAMPLEJNI_MAIN_H
 #define SAMPLEJNI_MAIN_H
 
+#include "Jnicom.h"
 
 class main {
 

@@ -1,6 +1,7 @@
 package com.example.libcommon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -22,5 +23,10 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.example.libcommon.test", appContext.getPackageName());
+    }
+    @Test
+    public void testMain() {
+        TestJnicom tji = new TestJnicom();
+        tji.testJnicom("javaString",new int[]{1,2,3,4,5});
     }
 }

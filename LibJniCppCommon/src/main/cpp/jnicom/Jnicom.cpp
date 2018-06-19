@@ -17,16 +17,13 @@ const char *Jnicom::strValOf(std::string str, bool isCopy) {
     const char *retChar = nullptr;
     if (isCopy) {
         char temp[str.length() + 1];
-        str.copy(temp, str.length() + 1, 0);
+        str.copy(temp, str.length(), 0);
+        temp[str.length()] = '\0';
         retChar = temp;
     } else {
         retChar = str.data();
     }
     return retChar;
-}
-
-std::string Jnicom::strValOf(char *p) {
-    return p;
 }
 
 std::string Jnicom::strValOf(jstring str) {
