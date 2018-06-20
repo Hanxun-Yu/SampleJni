@@ -6,9 +6,10 @@
 #define SAMPLEJNI_ICALLBACK_H
 
 #include <string>
+
 class ICallback {
 public:
-    virtual void onCallback(std::string fileName, bool bOK) = 0;
+    virtual void onCallback(JNIEnv *jniEnv, jobject jobject, std::string fileName, bool bOK) = 0;
 };
 
 
