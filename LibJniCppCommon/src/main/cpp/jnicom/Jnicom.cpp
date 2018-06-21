@@ -12,7 +12,7 @@ Jnicom::Jnicom() {
 }
 
 const char *Jnicom::strValOf(std::string str) {
-    return strValOf(str, false);
+    return strValOf(str, true);
 }
 
 const char *Jnicom::strValOf(std::string str, bool isCopy) {
@@ -29,7 +29,7 @@ const char *Jnicom::strValOf(std::string str, bool isCopy) {
 }
 
 std::string Jnicom::strValOf(jstring str) {
-    return strValOf(str, false);
+    return strValOf(str, true);
 }
 
 std::string Jnicom::strValOf(jstring str, bool isCopy) {

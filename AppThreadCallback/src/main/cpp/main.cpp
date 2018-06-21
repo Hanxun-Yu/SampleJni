@@ -3,7 +3,6 @@
 //
 
 #include "main.h"
-
 ThreadHandler *threadHandler;
 Jnicom *jnicom = new Jnicom();
 
