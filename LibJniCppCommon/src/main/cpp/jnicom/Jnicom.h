@@ -10,20 +10,87 @@
 #include "logcat.h"
 class Jnicom {
 public:
+    /**
+     * In jni file, you can call Jnicom* jnicom = new Jnicom() in globle region.
+     * and call handleJNILoad() in JNI_OnLoad() ,then the *env will be inited automatically
+     */
     Jnicom();
-    Jnicom(JNIEnv *env);
-    int handleJNILoad(JavaVM *vm, void *reserved,std::string myClassName,const JNINativeMethod* methods,int methodSize);
-    const char* strValOf(std::string str);
-    const char* strValOf(std::string str,bool isCopy);
 
-    std::string strValOf(jstring str);
-    std::string strValOf(jstring str,bool isCopy);
-    jstring jstrValOf(std::string str);
+    /**
+     * If not in jni file or in any function internal local region ,you must init *env manually
+     * you ca
+     * @param env
+     */
+    Jnicom(JNIEnv * env);
 
-    int* jintValOf(jintArray intArr);
-    jcharArray jcharValOf(const char *charArr, int length);
-    jbyteArray jbyteValOf(std::string str);
-    jbyteArray jbyteValOf(const char* charArr,int length);
+    /**
+     * call in JNI_OnLoad()
+     * @param vm
+     * @param reserved unused
+     * @param myClassName eg. "com/example/libcommon/TestJnicom"
+     * @param methods eg. JNINativeMethod nativeMethod[]
+     * @param methodSize eg. methodSize = sizeof(nativeMethod)/sizeof(nativeMethod[0])
+     * @return
+     */
+    static int handleJNILoad(JavaVM *vm, void *reserved,std::string myClassName,const JNINativeMethod* methods,int methodSize);
+
+    /**
+     * jstring -> string
+     * internal <> jstring2char_p()
+     * @param jstr
+     * @return
+     */
+    std::string jstring2string(jstring jstr);
+
+    /**
+     * jstring -> char*
+     * This will malloc a new string,
+     * please free it after use.
+     * @param jstr
+     * @return
+     */
+    char* jstring2char_p(jstring jstr);
+
+    /**
+     * string -> jstring
+     * internal <> char_p2jstring()
+     * @param str
+     * @return
+     */
+    jstring string2jstring(std::string str);
+
+    /**
+     * By default, this use utf-8(env->NewStringUTF) encoder to convert string
+     * because String in Java must has Encoder
+     * @param char_p
+     * @return
+     */
+    jstring char_p2jstring(char* char_p);
+
+    /**
+     * If @param byteArr is NULL,this will malloc automatically according to @param len
+     * then please free it after use
+     * @param jbyteArr :src
+     * @param byteArr :target
+     * @param len :The length of byteArr
+     */
+    void jbyteArr2byteArr(jbyteArray jbyteArr,uint8_t* &byteArr,int32_t &len);
+
+
+    /**
+     * uint8_t* -> jbyteArray
+     * @param byteArr
+     * @param len
+     * @return
+     */
+    jbyteArray byteArr2jbyteArr(uint8_t* byteArr,int32_t len);
+
+    /**
+     * remember free dst* after use
+     * @param src
+     */
+    char* strcpyWrap(char* src);
+
 private:
     JNIEnv *env;
 };

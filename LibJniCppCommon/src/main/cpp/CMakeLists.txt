@@ -14,6 +14,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
+
 ADD_SUBDIRECTORY(jnicom)
 
 include_directories(.
