@@ -51,7 +51,7 @@ JNIEXPORT jobject JNICALL createObject(JNIEnv *env, jobject obj) {
     jobject  ret = jnicom2->createObject("com/example/libcommon/TestObject",
                                          "(ILjava/lang/String;)V",1,jnicom2->string2jstring("aa"));
     jnicom2->setIntField(ret,"i",3);
-    jnicom2->setStringField(ret,"j",jnicom2->string2jstring("bb"));
+    jnicom2->setStringField(ret,"j",jnicom2->string2jstring(SIGNATURE(SIGN_BYTE SIGN_BOOLEAN,SIGN_VOID)));
     delete(jnicom2);
     return ret;
 }

@@ -117,7 +117,7 @@ jfieldID Jnicom::getFieldID(jobject obj, const char *fieldName, const char *type
 }
 
 jint Jnicom::getIntField(jobject obj, const char *fieldName) {
-    jfieldID intFid = getFieldID(obj, fieldName, SIGN_INT);
+    jfieldID intFid = getFieldID(obj, fieldName, SIGN_INT );
     jint intNum = env->GetIntField(obj, intFid);
     return intNum;
 }

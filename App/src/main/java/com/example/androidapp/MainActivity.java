@@ -28,25 +28,26 @@ public class MainActivity extends AppCompatActivity {
 //        TextView textView = findViewById(R.id.text);
 //        textView.setText(dependExternalSoJni.method_test1());
         final TestJnicom jnicom = new TestJnicom();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for(long i=0;i<100000000;i++) {
-                    Log.d("_xunxun","i:"+i);
-//                    jnicom.testJnicom("dawd", new byte[]{56, 78, 32});
-//                    Log.d("_xunxun","getString:"+jnicom.getString());
-//                    Log.d("_xunxun","getByteArr:"+ Arrays.toString(jnicom.getByteArr()));
-                    TestObject ret = (TestObject) jnicom.createObject();
-                    Log.d("_xunxun","i:"+ret.i+" j:"+ret.j);
-//                    try {
-//                        Thread.sleep(10);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                for(long i=0;i<100000000;i++) {
+//                    Log.d("_xunxun","i:"+i);
+////                    jnicom.testJnicom("dawd", new byte[]{56, 78, 32});
+////                    Log.d("_xunxun","getString:"+jnicom.getString());
+////                    Log.d("_xunxun","getByteArr:"+ Arrays.toString(jnicom.getByteArr()));
+//                    TestObject ret = (TestObject) jnicom.createObject();
+//                    Log.d("_xunxun","i:"+ret.i+" j:"+ret.j);
+////                    try {
+////                        Thread.sleep(10);
+////                    } catch (InterruptedException e) {
+////                        e.printStackTrace();
+////                    }
+//                }
+//            }
+//        }).start();
 
-
+        TestObject ret = (TestObject) jnicom.createObject();
+        Log.d("_xunxun","i:"+ret.i+" j:"+ret.j);
     }
 }

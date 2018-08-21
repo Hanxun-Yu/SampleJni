@@ -4,8 +4,9 @@
 #include "my-log.h"
 #include "ExternalCTest.h"
 
+extern "C" {
 #include "sqlite/sqlite3.h"
-
+}
 using namespace std;
 
 //#define LOG_TAG "main.cpp"
@@ -142,7 +143,7 @@ void native_method_testCallback(JNIEnv *env, jobject obj) {
     jclass clazz = env->GetObjectClass(obj);
     jmethodID dataCallbackMID = env->GetMethodID(clazz, "nativeCallback", "([BIIZII)V");
     jbyteArray jarray = env->NewByteArray(10);
-    env->CallVoidMethod(obj,dataCallbackMID,jarray,0,0,false,0,0);
+    env->CallVoidMethod(obj, dataCallbackMID, jarray, 0, 0, false, 0, 0);
 }
 
 JNINativeMethod nativeMethod[] =
@@ -160,8 +161,8 @@ JNINativeMethod nativeMethod[] =
 //                                   "$MethodTestInternal;)Lcom/example/androidjnilib/MethodTestJni"
 //                                   "$MethodTestInternal;",           (void *) native_method_test11}
          {"method_test11",       "(Lcom/example/xunxun/socreator/MethodTestJni"
-                                 "$MethodTestInternal;)Lcom/example/xunxun/socreator/MethodTestJni"
-                                 "$MethodTestInternal;",                   (void *) native_method_test11},
+                                         "$MethodTestInternal;)Lcom/example/xunxun/socreator/MethodTestJni"
+                                         "$MethodTestInternal;",           (void *) native_method_test11},
          {"sqlite3_open",        "(Ljava/lang/String;)Z",                  (void *) native_sqlite3_open},
 //         {"method_testCallback", "([BIIZII)V",                                    (void *) native_method_testCallback}
          {"method_testCallback", "()V",                                    (void *) native_method_testCallback}
@@ -203,24 +204,22 @@ jstring fromCString(JNIEnv *env, string cstr) {
     return ret;
 }
 
-int* fromJInt(JNIEnv *env, jintArray array_){
+int *fromJInt(JNIEnv *env, jintArray array_) {
     int *c_array;
     int arr_len;
     //1. 获取数组长度
     arr_len = env->GetArrayLength(array_);
     //2. 根据数组长度和数组元素的数据类型申请存放java数组元素的缓冲区
-    c_array = (int*)malloc(sizeof(int) * arr_len);
+    c_array = (int *) malloc(sizeof(int) * arr_len);
     //3. 初始化缓冲区
-    memset(c_array,0, sizeof(int)*arr_len);
-    LOGE("arr_len = %d",arr_len);
+    memset(c_array, 0, sizeof(int) * arr_len);
+    LOGE("arr_len = %d", arr_len);
     //4. 拷贝Java数组中的所有元素到缓冲区中
-    env->GetIntArrayRegion(array_,0,arr_len,c_array);
+    env->GetIntArrayRegion(array_, 0, arr_len, c_array);
     return c_array;
     //5. 释放存储数组元素的缓冲区
 //    free(c_array);
 }
-
-
 
 
 int callSum(int a, int b) {

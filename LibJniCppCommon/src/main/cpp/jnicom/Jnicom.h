@@ -11,16 +11,21 @@
 #include <cstdlib>
 #include <string.h>
 
-static const char* const SIGN_CHAR = "C";
-static const char* const SIGN_BYTE = "B";
-static const char* const SIGN_SHORT = "S";
-static const char* const SIGN_INT = "I";
-static const char* const SIGN_LONG = "J";
-static const char* const SIGN_FLOAT = "F";
-static const char* const SIGN_DOUBLE = "D";
-static const char* const SIGN_BOOLEAN = "Z";
-static const char* const SIGN_STRING = "Ljava/lang/String;";
-static const char* const SIGN_OBJECT = "Ljava/lang/Object;";
+#define SIGN_VOID  "V"
+#define SIGN_CHAR  "C"
+#define SIGN_BYTE  "B"
+#define SIGN_SHORT  "S"
+#define SIGN_INT  "I"
+#define SIGN_LONG  "J"
+#define SIGN_FLOAT  "F"
+#define SIGN_DOUBLE  "D"
+#define SIGN_BOOLEAN  "Z"
+#define SIGN_STRING  "Ljava/lang/String;"
+#define SIGN_OBJECT  "Ljava/lang/Object;"
+
+#define _SIGNATURE(x,y) "(" x ")" y
+#define SIGNATURE(x,y) _SIGNATURE(x,y)
+
 
 class Jnicom {
 public:
