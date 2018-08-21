@@ -8,20 +8,34 @@
 #include <jni.h>
 #include <string>
 #include "logcat.h"
+#include <cstdlib>
+#include <string.h>
+
+static const char* const SIGN_CHAR = "C";
+static const char* const SIGN_BYTE = "B";
+static const char* const SIGN_SHORT = "S";
+static const char* const SIGN_INT = "I";
+static const char* const SIGN_LONG = "J";
+static const char* const SIGN_FLOAT = "F";
+static const char* const SIGN_DOUBLE = "D";
+static const char* const SIGN_BOOLEAN = "Z";
+static const char* const SIGN_STRING = "Ljava/lang/String;";
+static const char* const SIGN_OBJECT = "Ljava/lang/Object;";
+
 class Jnicom {
 public:
     /**
      * In jni file, you can call Jnicom* jnicom = new Jnicom() in globle region.
      * and call handleJNILoad() in JNI_OnLoad() ,then the *env will be inited automatically
      */
-    Jnicom();
+//    Jnicom();
 
     /**
      * If not in jni file or in any function internal local region ,you must init *env manually
      * you ca
      * @param env
      */
-    Jnicom(JNIEnv * env);
+    Jnicom(JNIEnv *env);
 
     /**
      * call in JNI_OnLoad()
@@ -32,7 +46,8 @@ public:
      * @param methodSize eg. methodSize = sizeof(nativeMethod)/sizeof(nativeMethod[0])
      * @return
      */
-    static int handleJNILoad(JavaVM *vm, void *reserved,std::string myClassName,const JNINativeMethod* methods,int methodSize);
+    static int handleJNILoad(JavaVM *vm, void *reserved, std::string myClassName,
+                             const JNINativeMethod *methods, int methodSize);
 
     /**
      * jstring -> string
@@ -49,7 +64,7 @@ public:
      * @param jstr
      * @return
      */
-    char* jstring2char_p(jstring jstr);
+    char *jstring2char_p(jstring jstr);
 
     /**
      * string -> jstring
@@ -65,7 +80,7 @@ public:
      * @param char_p
      * @return
      */
-    jstring char_p2jstring(char* char_p);
+    jstring char_p2jstring(char *char_p);
 
     /**
      * If @param byteArr is NULL,this will malloc automatically according to @param len
@@ -74,7 +89,7 @@ public:
      * @param byteArr :target
      * @param len :The length of byteArr
      */
-    void jbyteArr2byteArr(jbyteArray jbyteArr,uint8_t* &byteArr,int32_t &len);
+    void jbyteArr2byteArr(jbyteArray jbyteArr, uint8_t *&byteArr, int32_t &len);
 
 
     /**
@@ -83,13 +98,69 @@ public:
      * @param len
      * @return
      */
-    jbyteArray byteArr2jbyteArr(uint8_t* byteArr,int32_t len);
+    jbyteArray byteArr2jbyteArr(uint8_t *byteArr, int32_t len);
 
     /**
      * remember free dst* after use
      * @param src
      */
-    char* strcpyWrap(char* src);
+    char *strcpyWrap(char *src);
+
+    /**
+     * Java Obj get set
+     */
+    jobject createObject(char* classpath,char* constructorSignature,...);
+
+    void invokeVoidMethod(jobject obj,char* methodName, char* methodSignature,...);
+    void invokeVoidStaticMethod(char *classpath,char* methodName, char* methodSignature,...);
+
+
+    jfieldID getFieldID(jobject obj, const char *fieldName, const char *typeSignature);
+
+    jint getIntField(jobject obj, const char *fieldName);
+
+    jlong getLongField(jobject obj, const char *fieldName);
+
+    jfloat getFloatField(jobject obj, const char *fieldName);
+
+    jdouble getDoubleField(jobject obj, const char *fieldName);
+
+    jboolean getBooleanField(jobject obj, const char *fieldName);
+
+    jstring getStringField(jobject obj, const char *fieldName);
+
+    jbyte getByteField(jobject obj, const char *fieldName);
+
+    jchar getCharField(jobject obj, const char *fieldName);
+
+    jshort getShortField(jobject obj, const char *fieldName);
+
+    jobject getObjectField(jobject obj, const char *fieldName, const char *classpath);
+
+    jobject getObjectField(jobject obj, const char *fieldName);
+
+
+    void setIntField(jobject obj, const char *fieldName, jint val);
+
+    void setLongField(jobject obj, const char *fieldName, jlong val);
+
+    void setFloatField(jobject obj, const char *fieldName, jfloat val);
+
+    void setDoubleField(jobject obj, const char *fieldName, jdouble val);
+
+    void setBooleanField(jobject obj, const char *fieldName, jboolean val);
+
+    void setStringField(jobject obj, const char *fieldName, jstring val);
+
+    void setByteField(jobject obj, const char *fieldName, jbyte val);
+
+    void setCharField(jobject obj, const char *fieldName, jchar val);
+
+    void setShortField(jobject obj, const char *fieldName, jshort val);
+
+    void setObjectField(jobject obj, const char *fieldName, const char *classpath, jobject val);
+
+    void setObjectField(jobject obj, const char *fieldName, jobject val);
 
 private:
     JNIEnv *env;

@@ -13,4 +13,5 @@ public class TestJnicom {
     public native void  testJnicom(String str,byte[] arr);
     public native String getString();
     public native byte[] getByteArr();
+    public native Object createObject();
 }
