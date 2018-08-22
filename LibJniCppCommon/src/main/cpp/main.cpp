@@ -45,32 +45,49 @@ JNIEXPORT jbyteArray JNICALL getByteArr(JNIEnv *env, jobject obj) {
 
     return ret;
 }
-
+//@formatter:off
 JNIEXPORT jobject JNICALL createObject(JNIEnv *env, jobject obj) {
-    Jnicom *jnicom2 = new Jnicom(env);
-    jobject  ret = jnicom2->createObject("com/example/libcommon/TestObject",
-                                         "(ILjava/lang/String;)V",1,jnicom2->string2jstring("aa"));
-    jnicom2->setIntField(ret,"i",3);
-    jnicom2->setStringField(ret,"j",jnicom2->string2jstring(SIGNATURE(SIGN_BYTE SIGN_BOOLEAN,SIGN_VOID)));
-    delete(jnicom2);
+    Jnicom *jni = new Jnicom(env);
+
+    jobject ret = jni->createObject("com/example/libcommon/TestObject",
+                                        SIGN(Jint JString, Jvoid), 1, jni->string2jstring("aa"));
+
+    jni->setIntField(ret, "i", 3);
+    jni->setStringField(ret, "j", jni->string2jstring(SIGN(JbyteArr JStringArr Jboolean, JObject)));
+    std::string myClassName = "com/example/libcommon/TestJnicom";
+
+//    jni->invokeVoidMethod(ret, "doST", SIGNATURE(STRING INT, VOID), jni->string2jstring("sss"), 5);
+    delete (jni);
     return ret;
 }
+//@formatter:on
+//@formatter:off
+JNIEXPORT void JNICALL callbackObject(JNIEnv *env, jobject obj,jobject callbackObj) {
+    Jnicom *jni = new Jnicom(env);
+    jni->invokeVoidMethod(callbackObj, "doST", SIGN(JString Jint, Jvoid), jni->string2jstring("sss"), 5);
+//    jclass myClass = env->GetObjectClass(callbackObj);
+//    jmethodID jmethodID1 = env->GetMethodID(myClass, "doST", SIGNATURE(STRING INT, VOID));
+//    env->CallVoidMethod(callbackObj,jmethodID1,jni->string2jstring("sss"),1);
+    delete (jni);
+}
+//@formatter:on
 
 
-JNINativeMethod
-        nativeMethod[] = {
-        {"testJnicom", "(Ljava/lang/String;[B)V", (void *) testJnicom},
-        {"getString",  "()Ljava/lang/String;",    (void *) getString},
-        {"getByteArr", "()[B",                    (void *) getByteArr},
-        {"createObject",  "()Ljava/lang/Object;",    (void *) createObject},
-};
-
+//@formatter:off
+JNINativeMethod nativeMethod[] =
+        {{"testJnicom",   SIGN(JString JbyteArr, Jvoid), (void *) testJnicom},
+         {"getString",    SIGN(, JString),          (void *) getString},
+         {"getByteArr",   SIGN(, JbyteArr),         (void *) getByteArr},
+         {"createObject", SIGN(, JObject),          (void *) createObject},
+         {"callbackObject", SIGN(JObject, Jvoid),          (void *) callbackObject},
+        };
 std::string myClassName = "com/example/libcommon/TestJnicom";
+//@formatter:on
 
 JNIEXPORT jint
 JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
-    return Jnicom::handleJNILoad(vm, reserved, myClassName, nativeMethod, sizeof(nativeMethod) /
-                                                                          sizeof(nativeMethod[0]));
+    return Jnicom::handleJNILoad(vm, reserved, myClassName, nativeMethod,
+                                 sizeof(nativeMethod) / sizeof(nativeMethod[0]));
 }
 
 }

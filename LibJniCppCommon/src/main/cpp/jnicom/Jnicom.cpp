@@ -93,7 +93,7 @@ void Jnicom::invokeVoidMethod(jobject obj, char *methodName, char *methodSignatu
                                                 methodSignature);
     va_list args;
     va_start(args, jmethodID1);
-    env->functions->CallVoidMethod(env, myClass, jmethodID1, args);
+    env->functions->CallVoidMethodV(env, obj, jmethodID1, args);
     va_end(args);
     env->DeleteLocalRef(myClass);
 }
@@ -104,7 +104,7 @@ void Jnicom::invokeVoidStaticMethod(char *classpath, char *methodName, char *met
                                             methodSignature);
     va_list args;
     va_start(args, jmethodID1);
-    env->functions->CallStaticVoidMethod(env, myClass, jmethodID1, args);
+    env->functions->CallStaticVoidMethodV(env, myClass, jmethodID1, args);
     va_end(args);
     env->DeleteLocalRef(myClass);
 }
@@ -117,62 +117,62 @@ jfieldID Jnicom::getFieldID(jobject obj, const char *fieldName, const char *type
 }
 
 jint Jnicom::getIntField(jobject obj, const char *fieldName) {
-    jfieldID intFid = getFieldID(obj, fieldName, SIGN_INT );
+    jfieldID intFid = getFieldID(obj, fieldName, Jint );
     jint intNum = env->GetIntField(obj, intFid);
     return intNum;
 }
 
 jboolean Jnicom::getBooleanField(jobject obj, const char *fieldName) {
-    jfieldID fid = getFieldID(obj, fieldName, SIGN_BOOLEAN);
+    jfieldID fid = getFieldID(obj, fieldName, Jboolean);
     jboolean jboolean1 = env->GetBooleanField(obj, fid);
     return jboolean1;
 }
 
 jstring Jnicom::getStringField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_STRING);
+    jfieldID strFid = getFieldID(obj, fieldName, JString);
     jobject str = env->GetObjectField(obj, strFid);
     return static_cast<jstring>(str);
 }
 
 jlong Jnicom::getLongField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_LONG);
+    jfieldID strFid = getFieldID(obj, fieldName, Jlong);
     jlong ret = env->GetLongField(obj, strFid);
     return ret;
 }
 
 jfloat Jnicom::getFloatField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_FLOAT);
+    jfieldID strFid = getFieldID(obj, fieldName, Jfloat);
     jfloat ret = env->GetFloatField(obj, strFid);
     return ret;
 }
 
 jdouble Jnicom::getDoubleField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_DOUBLE);
+    jfieldID strFid = getFieldID(obj, fieldName, Jdouble);
     jdouble ret = env->GetDoubleField(obj, strFid);
     return ret;
 }
 
 jbyte Jnicom::getByteField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_BYTE);
+    jfieldID strFid = getFieldID(obj, fieldName, Jbyte);
     jbyte ret = env->GetByteField(obj, strFid);
     return ret;
 }
 
 jchar Jnicom::getCharField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_CHAR);
+    jfieldID strFid = getFieldID(obj, fieldName, Jchar);
     jchar ret = env->GetCharField(obj, strFid);
     return ret;
 }
 
 jshort Jnicom::getShortField(jobject obj, const char *fieldName) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_SHORT);
+    jfieldID strFid = getFieldID(obj, fieldName, Jshort);
     jshort ret = env->GetShortField(obj, strFid);
     return ret;
 }
 
 jobject Jnicom::getObjectField(jobject obj, const char *fieldName, const char *classpath) {
     if (!classpath) {
-        classpath = SIGN_OBJECT;
+        classpath = JObject;
     }
     jfieldID strFid = getFieldID(obj, fieldName, classpath);
     jobject ret = env->GetObjectField(obj, strFid);
@@ -184,54 +184,54 @@ jobject Jnicom::getObjectField(jobject obj, const char *fieldName) {
 }
 
 void Jnicom::setIntField(jobject obj, const char *fieldName, jint val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_INT);
+    jfieldID strFid = getFieldID(obj, fieldName, Jint);
     env->SetIntField(obj, strFid, val);
 }
 
 void Jnicom::setLongField(jobject obj, const char *fieldName, jlong val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_LONG);
+    jfieldID strFid = getFieldID(obj, fieldName, Jlong);
     env->SetLongField(obj, strFid, val);
 }
 
 void Jnicom::setFloatField(jobject obj, const char *fieldName, jfloat val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_FLOAT);
+    jfieldID strFid = getFieldID(obj, fieldName, Jfloat);
     env->SetFloatField(obj, strFid, val);
 }
 
 void Jnicom::setDoubleField(jobject obj, const char *fieldName, jdouble val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_DOUBLE);
+    jfieldID strFid = getFieldID(obj, fieldName, Jdouble);
     env->SetDoubleField(obj, strFid, val);
 }
 
 void Jnicom::setBooleanField(jobject obj, const char *fieldName, jboolean val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_BOOLEAN);
+    jfieldID strFid = getFieldID(obj, fieldName, Jboolean);
     env->SetBooleanField(obj, strFid, val);
 }
 
 void Jnicom::setStringField(jobject obj, const char *fieldName, jstring val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_STRING);
+    jfieldID strFid = getFieldID(obj, fieldName, JString);
     env->SetObjectField(obj, strFid, val);
 }
 
 void Jnicom::setByteField(jobject obj, const char *fieldName, jbyte val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_BYTE);
+    jfieldID strFid = getFieldID(obj, fieldName, Jbyte);
     env->SetByteField(obj, strFid, val);
 }
 
 void Jnicom::setCharField(jobject obj, const char *fieldName, jchar val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_CHAR);
+    jfieldID strFid = getFieldID(obj, fieldName, Jchar);
     env->SetCharField(obj, strFid, val);
 }
 
 void Jnicom::setShortField(jobject obj, const char *fieldName, jshort val) {
-    jfieldID strFid = getFieldID(obj, fieldName, SIGN_SHORT);
+    jfieldID strFid = getFieldID(obj, fieldName, Jshort);
     env->SetShortField(obj, strFid, val);
 }
 
 void Jnicom::setObjectField(jobject obj, const char *fieldName,
                             const char *classpath, jobject val) {
     if (!classpath) {
-        classpath = SIGN_OBJECT;
+        classpath = JObject;
     }
     jfieldID strFid = getFieldID(obj, fieldName, classpath);
     env->SetObjectField(obj, strFid, val);

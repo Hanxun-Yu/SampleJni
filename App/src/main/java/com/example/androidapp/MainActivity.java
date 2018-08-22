@@ -49,5 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         TestObject ret = (TestObject) jnicom.createObject();
         Log.d("_xunxun","i:"+ret.i+" j:"+ret.j);
+        jnicom.callbackObject(ret);
     }
 }

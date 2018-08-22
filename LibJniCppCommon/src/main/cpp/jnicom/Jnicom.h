@@ -11,20 +11,39 @@
 #include <cstdlib>
 #include <string.h>
 
-#define SIGN_VOID  "V"
-#define SIGN_CHAR  "C"
-#define SIGN_BYTE  "B"
-#define SIGN_SHORT  "S"
-#define SIGN_INT  "I"
-#define SIGN_LONG  "J"
-#define SIGN_FLOAT  "F"
-#define SIGN_DOUBLE  "D"
-#define SIGN_BOOLEAN  "Z"
-#define SIGN_STRING  "Ljava/lang/String;"
-#define SIGN_OBJECT  "Ljava/lang/Object;"
+#define Jarr "["
+#define Jvoid  "V"
+#define Jchar  "C"
+#define Jbyte  "B"
+#define Jshort  "S"
+#define Jint  "I"
+#define Jlong  "J"
+#define Jfloat  "F"
+#define Jdouble  "D"
+#define Jboolean  "Z"
+#define JString  "Ljava/lang/String;"
+#define JObject  "Ljava/lang/Object;"
+#define JcharArr  Jarr Jchar
+#define JbyteArr  Jarr Jbyte
+#define JshortArr  Jarr Jshort
+#define JintArr  Jarr Jint
+#define JlongArr  Jarr Jlong
+#define JfloatArr  Jarr Jfloat
+#define JdoubleArr  Jarr Jdouble
+#define JbooleanArr  Jarr Jboolean
+#define JStringArr  Jarr JString
+#define JObjectArr  Jarr JObject
 
-#define _SIGNATURE(x,y) "(" x ")" y
-#define SIGNATURE(x,y) _SIGNATURE(x,y)
+/**
+ *
+ * @param x : method param
+ * @param y : method return type
+ *
+ * You can use the macro like this:
+ * SIGN(JString JbyteArr, Jvoid) ->  (Ljava/lang/String;[B)V
+ */
+#define _SIGN(x, y) "(" x ")" y
+#define SIGN(x, y) _SIGN(x,y)
 
 
 class Jnicom {
@@ -114,10 +133,11 @@ public:
     /**
      * Java Obj get set
      */
-    jobject createObject(char* classpath,char* constructorSignature,...);
+    jobject createObject(char *classpath, char *constructorSignature, ...);
 
-    void invokeVoidMethod(jobject obj,char* methodName, char* methodSignature,...);
-    void invokeVoidStaticMethod(char *classpath,char* methodName, char* methodSignature,...);
+    void invokeVoidMethod(jobject obj, char *methodName, char *methodSignature, ...);
+
+    void invokeVoidStaticMethod(char *classpath, char *methodName, char *methodSignature, ...);
 
 
     jfieldID getFieldID(jobject obj, const char *fieldName, const char *typeSignature);
