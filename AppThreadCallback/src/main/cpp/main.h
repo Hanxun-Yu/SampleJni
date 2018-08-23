@@ -5,7 +5,7 @@
 #ifndef SAMPLEJNI_MAIN_H
 #define SAMPLEJNI_MAIN_H
 
-#include "include/Jnicom.h"
+#include "JniHelper.h"
 #include "ThreadHandler.h"
 class main {
 

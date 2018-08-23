@@ -2,9 +2,9 @@
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
 
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/${ANDROID_ABI})
 
-set(SO_IMPORT_PATH ${PROJECT_SOURCE_DIR}/libs/${ANDROID_ABI})
+set(SO_IMPORT_PATH ${PROJECT_SOURCE_DIR}/../LibJniCppCommon/libs/${ANDROID_ABI})
 
 # Sets the minimum version of CMake required to build the native library.
 
@@ -15,7 +15,10 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-include_directories(src/main/cpp/)
+include_directories(
+    src/main/cpp/
+    ${PROJECT_SOURCE_DIR}/../LibJniCppCommon/src/main/cpp/jnihelper/
+    )
 #文件夹方式
 #AUX_SOURCE_DIRECTORY(./src/main/cpp/ SRC_LIST)
 #add_library( # Sets the name of the library.
@@ -45,7 +48,7 @@ add_library(
 
 set_target_properties(jnicom
         PROPERTIES IMPORTED_LOCATION
-        ${SO_IMPORT_PATH}/libjnicom.so)
+        ${SO_IMPORT_PATH}/libjnihelper.so)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by

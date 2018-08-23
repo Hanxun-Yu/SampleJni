@@ -15,10 +15,10 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-ADD_SUBDIRECTORY(jnicom)
+ADD_SUBDIRECTORY(jnihelper)
 
 include_directories(.
-        jnicom)
+        jnihelper)
 #文件夹方式
 #AUX_SOURCE_DIRECTORY(./src/main/cpp/ SRC_LIST)
 #add_library( # Sets the name of the library.
@@ -58,7 +58,7 @@ add_library( # Sets the name of the library.
 
 target_link_libraries( # Specifies the target library.
         jnicomTest
-        jnicom
+        jnihelper
         # Links the target library to the log library
         # included in the NDK.
 #        ${log-lib}

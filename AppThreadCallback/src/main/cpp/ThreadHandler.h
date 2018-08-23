@@ -11,7 +11,7 @@
 //#include <thread>
 #include <unistd.h>
 #include <jni.h>
-#include "include/logcat.h"
+#include <JniHelper.h>
 #include "ICallback.h"
 
 class ThreadHandler {

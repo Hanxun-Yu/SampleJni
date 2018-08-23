@@ -6,7 +6,7 @@ package com.example.libcommon;
  */
 public class TestJnicom {
     static {
-        System.loadLibrary("jnicom");
+        System.loadLibrary("jnihelper");
         System.loadLibrary("jnicomTest");
     }
 

@@ -36,7 +36,7 @@ android {
             dimension rootProject.ext.flavorDimensions
             externalNativeBuild {
                 cmake {
-                    targets "jnicom","jnicomTest"
+                    targets "jnihelper","jnicomTest"
                 }
             }
         }
