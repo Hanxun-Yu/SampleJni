@@ -9,13 +9,17 @@ public class MainActivity extends Activity {
 
     String TAG = "MainActivity_xunxun";
     MethodTestJni methodTestJni;
-
+    HttpsJni httpsJni;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         methodTestJni = new MethodTestJni(this);
         MethodTestJni.loadLibrariesOnce(null);
+
+
+        httpsJni = new HttpsJni();
+        httpsJni.getAuth();
 
 //        NativeLibJni nativeLibJni = new NativeLibJni();
         // Example of a call to a native method
@@ -36,7 +40,7 @@ public class MainActivity extends Activity {
 //                methodTestJni.method_test11(new MethodTestJni.MethodTestInternal("srcStr",0));
 //        Log.e(TAG, "mti:"+mti.toString());
 //        Log.e(TAG, "sqlite3_open :"+methodTestJni.sqlite3_open(getObbDir().getPath()+"/sqlite.db"));
-        methodTestJni.method_testCallback();
+//        methodTestJni.method_testCallback();
     }
 
 

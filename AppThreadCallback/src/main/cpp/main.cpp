@@ -3,6 +3,7 @@
 //
 
 #include "main.h"
+
 ThreadHandler *threadHandler;
 
 class MyCallback : public ICallback {
@@ -82,5 +83,5 @@ JNIEXPORT jint
 JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     return JniHelper::handleJNILoad(vm, reserved, myClassName,
-                                 nativeMethod, sizeof(nativeMethod) / sizeof(nativeMethod[0]));
+                                    nativeMethod, sizeof(nativeMethod) / sizeof(nativeMethod[0]));
 }

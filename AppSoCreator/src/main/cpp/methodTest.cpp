@@ -94,6 +94,7 @@ static jobjectArray native_method_test9(JNIEnv *env, jobject obj) {
 static jobject native_method_test11(JNIEnv *env, jobject obj, jobject internalObj) {
     //findclass 不需要打L和分号
     jclass internalObjClass = env->GetObjectClass(internalObj);
+
     //获取object内数据
     jfieldID strFid = env->GetFieldID(internalObjClass, "str", "Ljava/lang/String;");
     jfieldID numFid = env->GetFieldID(internalObjClass, "num", "I");
