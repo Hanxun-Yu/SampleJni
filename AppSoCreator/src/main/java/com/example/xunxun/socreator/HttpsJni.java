@@ -7,7 +7,7 @@ package com.example.xunxun.socreator;
  */
 public class HttpsJni {
     static {
-        System.loadLibrary("https");
+        System.loadLibrary("httpsJni");
     }
     public native String getAuth();
 }
