@@ -4,20 +4,22 @@
 
 
 #include "JniHelper.h"
-#include "https.h"
 
-#define MAX_BUFFER_SIZE    (1024 * 1024)
+
 extern "C" {
+#define MAX_BUFFER_SIZE    (1024 * 1024)
+
+#include "https.h"
 JNIEXPORT jstring JNICALL getAuth(JNIEnv *env, jobject obj) {
     LOGE("getAuth");
     char *resp = static_cast<char *>(malloc(MAX_BUFFER_SIZE));
     const char *host = "api-cn.faceplusplus.com";
     uint16_t port = 443;
     const char *path = "/sdk/v3/auth";
-    const char *body = "";
+    const char *body = "a=dw";
     int n = https_send_request(POST, host, port, path, body, resp,
                                MAX_BUFFER_SIZE);
-    LOGE("n=%d\n,%s\n", n, resp);
+    LOGE("n=%d ,%s\n", n, resp);
     return NULL;
 }
 }

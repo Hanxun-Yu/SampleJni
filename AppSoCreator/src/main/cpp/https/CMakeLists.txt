@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 set(SO_IMPORT_PATH ${PROJECT_SOURCE_DIR}/../../../../../LibJniCppCommon/libs/${ANDROID_ABI})
-set(SO_IMPORT_PATH2 ${PROJECT_SOURCE_DIR}/lib)
+set(SO_IMPORT_PATH2 ${PROJECT_SOURCE_DIR}/../../jniLibs/${ANDROID_ABI})
 
 
 # Creates and names a library, sets it as either STATIC
@@ -35,10 +35,10 @@ add_library( # Sets the name of the library.
              SHARED
 
              httpsJni.cpp
-             c/http.cpp
-             c/https.cpp
-             c/socket.cpp
-             c/url.cpp
+             c/http.c
+             c/https.c
+             c/socket.c
+             c/url.c
              //${SRC_LIST}
              )
 
@@ -89,7 +89,7 @@ set_target_properties(jnicom
 target_link_libraries( # Specifies the target library.
                        httpsJni
 jnicom
-crypto
+#crypto
 ssl
                        # Links the target library to the log library
                        # included in the NDK.
