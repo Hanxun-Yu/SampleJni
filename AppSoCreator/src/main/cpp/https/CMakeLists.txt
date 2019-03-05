@@ -35,10 +35,7 @@ add_library( # Sets the name of the library.
              SHARED
 
              httpsJni.cpp
-             c/http.cpp
-             c/https.cpp
-             c/socket.cpp
-             c/url.cpp
+
              //${SRC_LIST}
              )
 
@@ -70,27 +67,19 @@ set_target_properties(jnicom
         ${SO_IMPORT_PATH}/libjnihelper.so)
 
         add_library(
-                ssl
+                https
                 SHARED
                 IMPORTED
         )
-        set_target_properties(ssl
+        set_target_properties(https
                 PROPERTIES IMPORTED_LOCATION
-                ${SO_IMPORT_PATH2}/libssl.so)
-        add_library(
-                crypto
-                SHARED
-                IMPORTED
-        )
-        set_target_properties(crypto
-                PROPERTIES IMPORTED_LOCATION
-                ${SO_IMPORT_PATH2}/libcrypto.so)
+                ${SO_IMPORT_PATH2}/libhttps.so)
+
 
 target_link_libraries( # Specifies the target library.
                        httpsJni
-jnicom
-crypto
-ssl
+                       https
+                        jnicom
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )

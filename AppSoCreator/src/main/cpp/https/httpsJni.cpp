@@ -4,10 +4,11 @@
 
 
 #include "JniHelper.h"
-#include "https.h"
 
-#define MAX_BUFFER_SIZE    (1024 * 1024)
 extern "C" {
+#include "https.h"
+#define MAX_BUFFER_SIZE    (1024 * 1024)
+
 JNIEXPORT jstring JNICALL getAuth(JNIEnv *env, jobject obj) {
     LOGE("getAuth");
     char *resp = static_cast<char *>(malloc(MAX_BUFFER_SIZE));
@@ -20,7 +21,7 @@ JNIEXPORT jstring JNICALL getAuth(JNIEnv *env, jobject obj) {
     LOGE("n=%d\n,%s\n", n, resp);
     return NULL;
 }
-}
+
 
 JNINativeMethod nativeMethod[] = {
         {"getAuth", SIGN(, JString), (void *) getAuth},
@@ -34,4 +35,6 @@ JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     return JniHelper::handleJNILoad(vm, reserved, myClassName,
                                     nativeMethod, sizeof(nativeMethod) / sizeof(nativeMethod[0]));
+}
+
 }
