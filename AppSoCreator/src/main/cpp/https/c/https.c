@@ -7,7 +7,22 @@
 
 #include "https.h"
 #include "socket.h"
+#include <android/log.h>
 
+#define  LOG "JNILOG_xunxun"
+
+
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG,__VA_ARGS__)
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG,__VA_ARGS__)
+#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG,__VA_ARGS__)
+#define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG,__VA_ARGS__)
+#define LOGF(...)  __android_log_print(ANDROID_LOG_FATAL,LOG,__VA_ARGS__)
+
+#define  LOGD_TAG(tag, ...)  __android_log_print(ANDROID_LOG_DEBUG,tag,__VA_ARGS__)
+#define  LOGI_TAG(tag, ...)  __android_log_print(ANDROID_LOG_INFO,tag,__VA_ARGS__)
+#define  LOGW_TAG(tag, ...)  __android_log_print(ANDROID_LOG_WARN,tag,__VA_ARGS__)
+#define LOGE_TAG(tag, ...)  __android_log_print(ANDROID_LOG_ERROR,tag,__VA_ARGS__)
+#define LOGF_TAG(tag, ...)  __android_log_print(ANDROID_LOG_FATAL,tag,__VA_ARGS__)
 /*
  * @type: GET or POST
  * @host: the remote host
@@ -50,7 +65,8 @@ int https_send_request(enum request type, const char *host, uint16_t port, const
 
 	int nleft = req_len;
     printf("nleft=%d \n, all: %s \n", nleft, header);
-/*	int nwritten;
+	LOGE("nleft=%d , all: %s ", nleft, header);
+	int nwritten;
 	char *ptr = header;
 	while (nleft > 0) {
 		if ((nwritten = SSL_write(ssl, ptr, nleft)) <= 0) {
@@ -59,9 +75,9 @@ int https_send_request(enum request type, const char *host, uint16_t port, const
 		nleft -= nwritten;
 		ptr   += nwritten;
 	}
-*/
+
 	/* read response */
-/*	int nread;
+	int nread;
 	ptr = resp;
 	for (;;) {
 		nread = SSL_read(ssl, ptr, len);
@@ -75,7 +91,7 @@ int https_send_request(enum request type, const char *host, uint16_t port, const
 		if (len < 0)	
 			goto free_all;
 	}
-  */  
+
 	return 0/*ptr - resp*/;
 
 free_ssl_ctx:
