@@ -16,7 +16,6 @@
  *   - username and password must be paired.
  *
  */
-extern "C" {
 typedef enum {
 	HOST_IPV4,
 	HOST_IPV6,
@@ -44,5 +43,4 @@ int host_is_ipv4(const char *str);
 url_field_t *url_parse(const char *str);
 void url_free(url_field_t *url);
 void url_field_print(url_field_t *url);
-}
 #endif /* _URL_H_ */

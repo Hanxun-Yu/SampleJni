@@ -3,7 +3,7 @@
 # Sets the minimum version of CMake required to build the native library.
 
 cmake_minimum_required(VERSION 3.4.1)
-set(SO_IMPORT_PATH ${PROJECT_SOURCE_DIR}/../../../../../LibJniCppCommon/libs/${ANDROID_ABI})
+#set(SO_IMPORT_PATH ${PROJECT_SOURCE_DIR}/../../../../../LibJniCppCommon/libs/${ANDROID_ABI})
 set(SO_IMPORT_PATH2 ${PROJECT_SOURCE_DIR}/../../jniLibs/${ANDROID_ABI})
 
 
@@ -35,14 +35,6 @@ add_library( # Sets the name of the library.
              SHARED
 
              httpsJni.cpp
-<<<<<<< HEAD
-
-=======
-             c/http.c
-             c/https.c
-             c/socket.c
-             c/url.c
->>>>>>> 1eb7af2b6d52a30e4c4921cb9481c4cce3bfa3b8
              //${SRC_LIST}
              )
 
@@ -71,7 +63,7 @@ add_library(
 
 set_target_properties(jnicom
         PROPERTIES IMPORTED_LOCATION
-        ${SO_IMPORT_PATH}/libjnihelper.so)
+        ${SO_IMPORT_PATH2}/libjnihelper.so)
 
         add_library(
                 https
@@ -85,14 +77,8 @@ set_target_properties(jnicom
 
 target_link_libraries( # Specifies the target library.
                        httpsJni
-<<<<<<< HEAD
-                       https
                         jnicom
-=======
-jnicom
+                        https
 #crypto
-ssl
->>>>>>> 1eb7af2b6d52a30e4c4921cb9481c4cce3bfa3b8
-                       # Links the target library to the log library
-                       # included in the NDK.
+#ssl
                        ${log-lib} )
