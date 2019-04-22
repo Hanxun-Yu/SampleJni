@@ -5,7 +5,7 @@
 #include "main.h"
 
 ThreadHandler *threadHandler;
-
+JniHelper* jniHelper;
 class MyCallback : public ICallback {
 public:
     jmethodID strTest_id = NULL;
@@ -17,7 +17,6 @@ public:
 //            strTest_id = env->GetMethodID(cls, "callbackFromC", "(Ljava/lang/String;)V");
 //        }
 //    }
-    JniHelper *jnicom = NULL;
 
     void onCallback(JNIEnv *jniEnv, jobject jobject, std::string fileName, bool bOK) override {
         LOGE("c++callback fileName:%s bOK:%d", fileName.data(), bOK);
@@ -28,12 +27,9 @@ public:
             }
         }
 
-        if (this->jnicom == NULL) {
-            this->jnicom = new JniHelper(jniEnv);
-        }
 
         if (strTest_id != NULL) {
-            jniEnv->CallVoidMethod(jobject, strTest_id, this->jnicom->string2jstring(fileName));
+            jniEnv->CallVoidMethod(jobject, strTest_id, jniHelper->string2jstring(fileName));
         }
     }
 
@@ -81,7 +77,7 @@ std::string myClassName = "com/example/appthreadcallback/MainActivity";
 
 JNIEXPORT jint
 JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
-
+    jniHelper = new JniHelper(vm);
     return JniHelper::handleJNILoad(vm, reserved, myClassName,
                                     nativeMethod, sizeof(nativeMethod) / sizeof(nativeMethod[0]));
 }

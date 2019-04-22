@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "27.0.3"
+//    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.example.xunxun.socreator"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -44,9 +44,9 @@ android {
 //        cmake {
 //            path "CMakeLists.txt"
 //        }
-        cmake {
-            path "src/main/cpp/https/CMakeLists.txt"
-        }
+//        cmake {
+//            path "src/main/cpp/https/CMakeLists.txt"
+//        }
 
     }
 

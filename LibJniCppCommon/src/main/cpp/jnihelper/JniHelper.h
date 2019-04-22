@@ -75,7 +75,9 @@ public:
      * you call JniHelper* jni = new JniHelper(env)
      * @param env
      */
-    JniHelper(JNIEnv *env);
+//    JniHelper(JNIEnv *env);
+
+    JniHelper(JavaVM *jvm);
 
     /**
      * call in JNI_OnLoad()
@@ -204,7 +206,8 @@ public:
     void setObjectField(jobject obj, const char *fieldName, jobject val);
 
 private:
-    JNIEnv *env;
+//    JNIEnv *env;
+    JavaVM *jvm;
 };
 
 

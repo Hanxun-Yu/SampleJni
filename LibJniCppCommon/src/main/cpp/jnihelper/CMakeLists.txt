@@ -32,7 +32,8 @@ include_directories(.)
 
 add_library( # Sets the name of the library.
         jnihelper
-        SHARED
+        STATIC
+#        SHARED
         JniHelper.cpp
         )
 
