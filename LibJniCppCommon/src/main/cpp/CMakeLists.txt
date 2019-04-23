@@ -2,7 +2,8 @@
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
 
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../../../libs/${ANDROID_ABI})
+
 
 #set(SO_IMPORT_PATH ${PROJECT_SOURCE_DIR}/src/main/jniLibsImport/${ANDROID_ABI})
 
