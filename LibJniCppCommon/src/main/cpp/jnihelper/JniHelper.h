@@ -130,6 +130,11 @@ public:
      * @param jbyteArr :src
      * @param byteArr :target
      * @param len :The length of byteArr
+     *
+     * example
+     *  uint8_t *byteArr = nullptr;
+        int32_t byteArrLen;
+        jnicom->jbyteArr2byteArr(jbytearr, byteArr, byteArrLen);
      */
     void jbyteArr2byteArr(jbyteArray jbyteArr, uint8_t *&byteArr, int32_t &len);
 
