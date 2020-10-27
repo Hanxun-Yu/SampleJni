@@ -42,13 +42,13 @@ add_library( # Sets the name of the library.
 
 add_library(
         jnicom
-        STATIC
+        SHARED
         IMPORTED
 )
 
 set_target_properties(jnicom
         PROPERTIES IMPORTED_LOCATION
-        ${SO_IMPORT_PATH}/libjnihelper.a)
+        ${SO_IMPORT_PATH}/libjnihelper.so)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
