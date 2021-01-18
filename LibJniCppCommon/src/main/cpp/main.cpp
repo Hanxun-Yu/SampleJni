@@ -7,13 +7,13 @@
 #include <JniHelper.h>
 
 extern "C" {
-JniHelper *jnicom;
+JniHelper* jnicom;
 
 
-JNIEXPORT void JNICALL testJnicom(JNIEnv *env, jobject obj, jstring str, jbyteArray jbytearr) {
+JNIEXPORT void JNICALL testJnicom(JNIEnv* env, jobject obj, jstring str, jbyteArray jbytearr) {
     std::string cppstr = jnicom->jstring2string(str);
-    char *cstr = jnicom->jstring2char_p(str);
-    uint8_t *byteArr = nullptr;
+    char* cstr = jnicom->jstring2char_p(str);
+    uint8_t* byteArr = nullptr;
     int32_t byteArrLen;
     jnicom->jbyteArr2byteArr(jbytearr, byteArr, byteArrLen);
 
@@ -29,11 +29,11 @@ JNIEXPORT void JNICALL testJnicom(JNIEnv *env, jobject obj, jstring str, jbyteAr
     free(cstr);
     free(byteArr);
 }
-JNIEXPORT jstring JNICALL getString(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL getString(JNIEnv* env, jobject obj) {
     jstring ret = jnicom->string2jstring("hahaha");
     return ret;
 }
-JNIEXPORT jbyteArray JNICALL getByteArr(JNIEnv *env, jobject obj) {
+JNIEXPORT jbyteArray JNICALL getByteArr(JNIEnv* env, jobject obj) {
 
     uint8_t temp[] = {12, 32, 45, 67, 230};
     jbyteArray ret = jnicom->byteArr2jbyteArr(temp, 5);
@@ -41,7 +41,7 @@ JNIEXPORT jbyteArray JNICALL getByteArr(JNIEnv *env, jobject obj) {
     return ret;
 }
 //@formatter:off
-JNIEXPORT jobject JNICALL createObject(JNIEnv *env, jobject obj) {
+JNIEXPORT jobject JNICALL createObject(JNIEnv* env, jobject obj) {
 
 //    jobject ret = jni->createObject("com/example/libcommon/TestObject",
 //                                        SIGN(Jint JString, Jvoid), 1, jni->string2jstring("aa"));
@@ -59,7 +59,7 @@ JNIEXPORT jobject JNICALL createObject(JNIEnv *env, jobject obj) {
 }
 //@formatter:on
 //@formatter:off
-JNIEXPORT void JNICALL callbackObject(JNIEnv *env, jobject obj, jobject callbackObj) {
+JNIEXPORT void JNICALL callbackObject(JNIEnv* env, jobject obj, jobject callbackObj) {
 //    JniHelper *jni = new JniHelper(env);
 //    jni->invokeVoidMethod(callbackObj, "doST", SIGN(JString Jint, Jvoid), jni->string2jstring("sss"), 5);
 //    jclass myClass = env->GetObjectClass(callbackObj);
@@ -73,16 +73,16 @@ JNIEXPORT void JNICALL callbackObject(JNIEnv *env, jobject obj, jobject callback
 //@formatter:off
 JNINativeMethod nativeMethod[] =
         {{"testJnicom",     SIGN(JString
-                                         JbyteArr, Jvoid), (void *) testJnicom},
-         {"getString",      SIGN(, JString),               (void *) getString},
-         {"getByteArr",     SIGN(, JbyteArr),              (void *) getByteArr},
-         {"createObject",   SIGN(, JObject),               (void *) createObject},
-         {"callbackObject", SIGN(JObject, Jvoid),          (void *) callbackObject},
+                                         JbyteArr, Jvoid), (void*) testJnicom},
+         {"getString",      SIGN(, JString),               (void*) getString},
+         {"getByteArr",     SIGN(, JbyteArr),              (void*) getByteArr},
+         {"createObject",   SIGN(, JObject),               (void*) createObject},
+         {"callbackObject", SIGN(JObject, Jvoid),          (void*) callbackObject},
         };
 std::string myClassName = "com/example/libcommon/TestJnicom";
 //@formatter:on
 JNIEXPORT jint
-JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
+JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     jnicom = new JniHelper(vm);
     return JniHelper::handleJNILoad(vm, reserved, myClassName, nativeMethod,
                                     sizeof(nativeMethod) / sizeof(nativeMethod[0]));
